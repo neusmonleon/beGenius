@@ -59,7 +59,7 @@ export default function LoginPage(props) {
         password: inputPassword,
       },
       withCredentials: true,
-      url: "http://localhost:3002/login",
+      url: "https://testbegenius.herokuapp.com//login",
     })
       .then((res) => {
         console.log(res);
@@ -146,7 +146,10 @@ export default function LoginPage(props) {
             ) : (
               <ListItem className={classesNav.listItem}>
                 <Link to={"/login"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLinkActive}  color="transparent">
+                  <Button
+                    className={classesNav.navLinkActive}
+                    color="transparent"
+                  >
                     LogIn
                   </Button>
                 </Link>

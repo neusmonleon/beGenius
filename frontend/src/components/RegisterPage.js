@@ -190,7 +190,7 @@ export default function RegisterPage(props) {
                 newsletter: checkedNewsletter,
               },
               withCredentials: true,
-              url: "http://localhost:3002/signup",
+              url: "https://testbegenius.herokuapp.com//signup",
             })
               .then((res) => {
                 console.log(res.data);
