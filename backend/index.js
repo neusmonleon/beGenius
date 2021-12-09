@@ -26,7 +26,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const cors = require("cors");
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://testbegeniusfront.herokuapp.com/",
     credentials: true,
   })
 );

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import IconoTeamBuilding from "../../assets/img/teambuilding.jpg";
@@ -76,7 +75,6 @@ export default function ContactSection(props) {
       //todo: enviar mail
     }
   }
-
 
   return (
     <div className={classes.section}>
