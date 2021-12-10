@@ -63,7 +63,7 @@ export default function LoginPage(props) {
         password: inputPassword,
       },
       withCredentials: true,
-      url: "https://api-begenius.herokuapp.com//login",
+      url: "https://api-begenius.herokuapp.com/login",
     })
       .then((res) => {
         if (res.data.logged) {

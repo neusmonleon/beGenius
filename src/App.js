@@ -40,7 +40,7 @@ export default function App() {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "https://api-begenius.herokuapp.com//",
+      url: "https://api-begenius.herokuapp.com/",
     })
       .then((res) => {
         console.log(res);
