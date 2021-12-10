@@ -5,6 +5,7 @@ import Axios from "axios";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Slide from "@material-ui/core/Slide";
 // @material-ui/icons
 import { Twitter, LockSharp } from "@material-ui/icons";
 import Email from "@material-ui/icons/Email";
@@ -29,19 +30,23 @@ import SnackbarContent from "../components/Components/Snackbar/SnackbarContent.j
 import styles from "../assets/jss/material-kit-react/views/loginPage.js";
 import styleNavbar from "../assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
 
-//import image from "../assets/img/fondo-web.jpg";
 import image from "../assets/img/detective.jpg";
-//import image from "../assets/img/fondo-web4.jpg";
 
 const useStyleNavbar = makeStyles(styleNavbar);
 const useStyles = makeStyles(styles);
 
 export default function LoginPage(props) {
   /* LOGIN ANIMATION */
-  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  const [cardAnimaton, setCardAnimation] = useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
+  //Effect to slow down modal box
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="down" ref={ref} {...props} />;
+  });
+  Transition.displayName = "Transition";
+
   const classes = useStyles();
   const classesNav = useStyleNavbar();
   const navigate = useNavigate();
@@ -49,7 +54,6 @@ export default function LoginPage(props) {
   /* LOGIN FUNCTION */
   const [inputEmail, setinputEmail] = useState("");
   const [inputPassword, setinputPassword] = useState("");
-  const [alert, setAlert] = useState(false);
 
   function login() {
     Axios({
@@ -59,13 +63,9 @@ export default function LoginPage(props) {
         password: inputPassword,
       },
       withCredentials: true,
-      url: "https://testbegenius.herokuapp.com/login",
+      url: "http://localhost:3002/login",
     })
       .then((res) => {
-        console.log(res);
-        // if(){
-
-        // }
         if (res.data.logged) {
           props.setLogged(res.data.logged);
           props.setUser(res.data.user);
@@ -78,104 +78,108 @@ export default function LoginPage(props) {
           props.setMensaje(res.data.mensaje);
         }
         //show notification
-        setAlert(true);
+        props.setAlert(true);
         setTimeout(() => {
           //hide notification
-          setAlert(false);
+          props.setAlert(false);
           if (res.data.logged) {
             navigate("/profile");
           }
           props.setVariante("");
-        }, 3000);
+        }, 1100);
       })
       .catch(() => {
-        setAlert(true);
+        props.setAlert(true);
         props.setVariante("warning");
         setTimeout(() => {
-          setAlert(false);
+          props.setAlert(false);
           props.setVariante("");
         }, 3000);
       });
   }
 
   return (
-    <div id="navbar" className={classesNav.navbar}>
-      <Header
-        brand="beGenius"
-        color="dark"
-        fixed
-        rightLinks={
-          <List className={classesNav.list}>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  Inicio
-                </Button>
-              </Link>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Button
-                href="/events"
-                className={classesNav.navLink}
-                onClick={(e) => e.preventDefault()}
-                color="transparent"
-              >
-                Eventos
-              </Button>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Button
-                href="/faqs"
-                className={classesNav.navLink}
-                onClick={(e) => e.preventDefault()}
-                color="transparent"
-              >
-                FAQs
-              </Button>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/contact"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  Contacto
-                </Button>
-              </Link>
-            </ListItem>
-            {/* BUTTON LOGIN / LOGOUT */}
-            {props.logged === true ? (
-              <></>
-            ) : (
+    <>
+      <div id="navbar" className={classesNav.navbar}>
+        <Header
+          brand="beGenius"
+          color="dark"
+          fixed
+          rightLinks={
+            <List className={classesNav.list}>
               <ListItem className={classesNav.listItem}>
-                <Link to={"/login"} className={classesNav.listItem}>
-                  <Button
-                    className={classesNav.navLinkActive}
-                    color="transparent"
-                  >
-                    LogIn
+                <Link to={"/"} className={classesNav.listItem}>
+                  <Button className={classesNav.navLink} color="transparent">
+                    Inicio
                   </Button>
                 </Link>
               </ListItem>
-            )}
+              <ListItem className={classesNav.listItem}>
+                <Button
+                  href="/events"
+                  className={classesNav.navLink}
+                  onClick={(e) => e.preventDefault()}
+                  color="transparent"
+                >
+                  Eventos
+                </Button>
+              </ListItem>
+              <ListItem className={classesNav.listItem}>
+                <Link to={"/faqs"} className={classesNav.listItem}>
+                  <Button className={classesNav.navLink} color="transparent">
+                    FAQs
+                  </Button>
+                </Link>
+              </ListItem>
 
-            {/* BUTTON REGISTER - TERNARY with login */}
-            {props.logged === false ? (
               <ListItem className={classesNav.listItem}>
-                <Link to="/register" params="" className={classesNav.listItem}>
-                  <Button
-                    // justIcon
-                    round
-                    color="info"
-                  >
-                    <PersonIcon className={classesNav.icons} />
-                    Sign Up
+                <Link to={"/contact"} className={classesNav.listItem}>
+                  <Button className={classesNav.navLink} color="transparent">
+                    Contacto
                   </Button>
                 </Link>
               </ListItem>
-            ) : (
-              <></>
-            )}
-          </List>
-        }
-      />
+              {/* BUTTON LOGIN / LOGOUT */}
+              {props.logged === true ? (
+                <></>
+              ) : (
+                <ListItem className={classesNav.listItem}>
+                  <Link to={"/login"} className={classesNav.listItem}>
+                    <Button
+                      className={classesNav.navLinkActive}
+                      color="transparent"
+                    >
+                      LogIn
+                    </Button>
+                  </Link>
+                </ListItem>
+              )}
+
+              {/* BUTTON REGISTER - TERNARY with login */}
+              {props.logged === false ? (
+                <ListItem className={classesNav.listItem}>
+                  <Link
+                    to="/register"
+                    params=""
+                    className={classesNav.listItem}
+                  >
+                    <Button
+                      // justIcon
+                      round
+                      color="info"
+                    >
+                      <PersonIcon className={classesNav.icons} />
+                      Sign Up
+                    </Button>
+                  </Link>
+                </ListItem>
+              ) : (
+                <></>
+              )}
+            </List>
+          }
+        />
+      </div>
       <div
         className={classes.pageHeader}
         style={{
@@ -187,8 +191,11 @@ export default function LoginPage(props) {
         <div className={classes.container}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
-              <Card className={classes[cardAnimaton]}>
-                {alert ? notification(props.variante) : <></>}
+              <Card
+                TransitionComponent={Transition}
+                
+              >
+                {props.alert ? notification(props.variante) : <></>}
                 <form className={classes.form}>
                   <CardHeader color="info" className={classes.cardHeader}>
                     <h4>Login</h4>
@@ -279,7 +286,7 @@ export default function LoginPage(props) {
         </div>
         <Footer whiteFont />
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,12 +1,15 @@
-import { container, title } from "../../../../../assets/jss/material-kit-react.js";
+import {
+  container,
+  title,
+} from "../../../../../assets/jss/material-kit-react.js";
 import headerLinksStyle from "../../../../../assets/jss/material-kit-react/components/headerLinksStyle.js";
 
 const navbarsStyle = (theme) => ({
+  container,
+  ...headerLinksStyle(theme),
   section: {
     padding: "70px 0",
-    paddingTop: "0",
   },
-  container,
   title: {
     ...title,
     marginTop: "30px",
@@ -14,23 +17,25 @@ const navbarsStyle = (theme) => ({
     textDecoration: "none",
   },
   navbar: {
-    marginBottom: "-20px",
+    //marginBottom: "-20px",
     zIndex: "100",
     position: "relative",
     overflow: "hidden",
     "& header": {
       borderRadius: "0",
+      zIndex: "unset",
     },
   },
   navigation: {
-    backgroundPosition: "center center",
+    backgroundPosition: "50%",
     backgroundSize: "cover",
     marginTop: "0",
     minHeight: "740px",
   },
   formControl: {
     margin: "0 !important",
-    paddingTop: "0",
+    paddingTop: "7px",
+    paddingBottom: "7px",
   },
   inputRootCustomClasses: {
     margin: "0!important",
@@ -40,7 +45,6 @@ const navbarsStyle = (theme) => ({
     height: "20px",
     color: "inherit",
   },
-  ...headerLinksStyle(theme),
   img: {
     width: "40px",
     height: "40px",
@@ -48,7 +52,6 @@ const navbarsStyle = (theme) => ({
   },
   imageDropdownButton: {
     padding: "0px",
-    top: "4px",
     borderRadius: "50%",
     marginLeft: "5px",
   },

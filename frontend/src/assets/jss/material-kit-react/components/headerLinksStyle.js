@@ -1,35 +1,57 @@
-import { defaultFont } from "../../../../assets/jss/material-kit-react.js";
+import {
+  grayColor,
+  whiteColor,
+  mlAuto,
+  hexToRgb,
+  warningColor,
+} from "../../../../assets/jss/material-kit-react.js";
 
 import tooltip from "../../../../assets/jss/material-kit-react/tooltipsStyle.js";
 
 const headerLinksStyle = (theme) => ({
   list: {
-    ...defaultFont,
-    fontSize: "14px",
-    margin: 0,
+    [theme.breakpoints.up("md")]: {
+      WebkitBoxAlign: "center",
+      MsFlexAlign: "center",
+      alignItems: "center",
+      WebkitBoxOrient: "horizontal",
+      WebkitBoxDirection: "normal",
+      MsFlexDirection: "row",
+      flexDirection: "row",
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "block",
+    },
+    marginTop: "0px",
+    display: "flex",
     paddingLeft: "0",
+    marginBottom: "0",
     listStyle: "none",
-    paddingTop: "0",
-    paddingBottom: "0",
-    color: "#FFFFFF",
+    padding: "0",
   },
   listItem: {
     float: "left",
-    color: "#FFFFFF",
+    color: "inherit",
     position: "relative",
     display: "block",
     width: "auto",
     margin: "0",
     padding: "0",
     [theme.breakpoints.down("sm")]: {
+      "& ul": {
+        maxHeight: "400px",
+        overflow: "scroll",
+      },
       width: "100%",
-      "&:after": {
-        width: "calc(100% - 30px)",
-        content: '""',
-        display: "block",
-        height: "1px",
-        marginLeft: "15px",
-        backgroundColor: "#e5e5e5",
+      "&:not(:last-child)": {
+        "&:after": {
+          width: "calc(100% - 30px)",
+          content: '""',
+          display: "block",
+          height: "1px",
+          marginLeft: "15px",
+          backgroundColor: grayColor[14],
+        },
       },
     },
   },
@@ -43,14 +65,21 @@ const headerLinksStyle = (theme) => ({
     fontWeight: "400",
     fontSize: "12px",
     textTransform: "uppercase",
-    borderRadius: "3px",
     lineHeight: "20px",
     textDecoration: "none",
     margin: "0px",
     display: "inline-flex",
     "&:hover,&:focus": {
-      color: "rgb(255,255,255)", //#08b1c6
-      background: "rgba(255, 189, 89)",
+      color: whiteColor,
+      backgroundColor: warningColor[3],
+    },
+    "& .fab,& .far,& .fal,& .fas,& .material-icons": {
+      position: "relative",
+      top: "2px",
+      marginTop: "-4px",
+      marginRight: "4px",
+      marginBottom: "0px",
+      fontSize: "1.25rem",
     },
     [theme.breakpoints.down("sm")]: {
       width: "calc(100% - 30px)",
@@ -61,6 +90,42 @@ const headerLinksStyle = (theme) => ({
       "& > span:first-child": {
         justifyContent: "flex-start",
       },
+    },
+    "& svg": {
+      marginRight: "3px",
+      width: "20px",
+      height: "20px",
+    },
+  },
+  navLinkJustIcon: {
+    "& .fab,& .far,& .fal,& .fas,& .material-icons": {
+      marginRight: "0px",
+    },
+    "& svg": {
+      marginRight: "0px",
+    },
+  },
+  navButton: {
+    position: "relative",
+    fontWeight: "400",
+    fontSize: "12px",
+    textTransform: "uppercase",
+    lineHeight: "20px",
+    textDecoration: "none",
+    margin: "0px",
+    display: "inline-flex",
+    [theme.breakpoints.down("sm")]: {
+      width: "calc(100% - 30px)",
+      marginLeft: "15px",
+      marginBottom: "5px",
+      marginTop: "5px",
+      textAlign: "left",
+      "& > span:first-child": {
+        justifyContent: "flex-start",
+      },
+    },
+    "& $icons": {
+      marginRight: "3px",
     },
   },
   notificationNavLink: {
@@ -73,10 +138,8 @@ const headerLinksStyle = (theme) => ({
     textDecoration: "none",
     margin: "0px",
     display: "inline-flex",
-    top: "4px",
   },
   registerNavLink: {
-    top: "3px",
     position: "relative",
     fontWeight: "400",
     fontSize: "12px",
@@ -87,35 +150,58 @@ const headerLinksStyle = (theme) => ({
     display: "inline-flex",
   },
   navLinkActive: {
-    color: "#000000",
-    backgroundColor: "rgba(255, 189, 89)",
-    "&:hover,&:focus": {
-      color: "rgb(255,255,255)", 
-      background: "rgba(255, 189, 89)",
-    }
+    "&, &:hover, &:focus,&:active ": {
+      color: "#000",
+      backgroundColor: warningColor[3],
+    },
   },
   icons: {
     width: "20px",
     height: "20px",
-    marginRight: "3px",
+    marginRight: "14px",
+  },
+  dropdownIcons: {
+    width: "24px",
+    height: "24px",
+    marginRight: "14px",
+    opacity: "0.5",
+    marginTop: "-4px",
+    top: "1px",
+    verticalAlign: "middle",
+    fontSize: "24px",
+    position: "relative",
   },
   socialIcons: {
     position: "relative",
-    fontSize: "20px !important",
-    marginRight: "4px",
+    fontSize: "1.25rem",
+    maxWidth: "24px",
   },
   dropdownLink: {
     "&,&:hover,&:focus": {
       color: "inherit",
       textDecoration: "none",
-      display: "block",
-      padding: "10px 20px",
+      display: "flex",
+      padding: "0.75rem 1.25rem 0.75rem 0.75rem",
     },
   },
   ...tooltip,
   marginRight5: {
     marginRight: "5px",
   },
+  collapse: {
+    [theme.breakpoints.up("md")]: {
+      display: "flex !important",
+      MsFlexPreferredSize: "auto",
+      flexBasis: "auto",
+    },
+    WebkitBoxFlex: "1",
+    MsFlexPositive: "1",
+    flexGrow: "1",
+    WebkitBoxAlign: "center",
+    MsFlexAlign: "center",
+    alignItems: "center",
+  },
+  mlAuto,
 });
 
 export default headerLinksStyle;

@@ -1,6 +1,4 @@
-import React from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
+import React, { useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -17,22 +15,38 @@ import Footer from "../Components/Footer/Footer.js";
 import GridContainer from "../Components/Grid/GridContainer.js";
 import GridItem from "../Components/Grid/GridItem.js";
 import Button from "../Components/CustomButtons/Button.js";
+import Slide from "@material-ui/core/Slide";
 import Parallax from "../Components/Parallax/Parallax.js";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+// @material-ui/icons
+import Close from "@material-ui/icons/Close";
 
 //import styles from "../../assets/jss/material-kit-react/views/landingPage.js";
 import styleNavbar from "../../assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
+import styleModal from "../../assets/jss/material-kit-react/views/componentsSections/javascriptStyles.js";
 
-// Sections for this page
-import ProductSection from "../Sections/ProductSection.js";
-import TeamSection from "../Sections/TeamSection.js";
-import WorkSection from "../Sections/ContactSection.js";
 //import { Link } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 const useStyleNavbar = makeStyles(styleNavbar);
+const useStyleModal = makeStyles(styleModal);
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 
 export default function LandingPage(props) {
+  const [largeModal, setLargeModal] = React.useState(false);
+
   const classes = useStyleNavbar();
+  const classesModal = useStyleModal();
+
+  useEffect(() => {
+    setLargeModal(true);
+  }, []);
+
   return (
     <div className={classes.section}>
       <div id="navbar" className={classes.navbar}>
@@ -64,14 +78,11 @@ export default function LandingPage(props) {
                 </Button>
               </ListItem>
               <ListItem className={classes.listItem}>
-                <Button
-                  href="/faqs"
-                  className={classes.navLink}
-                  onClick={(e) => e.preventDefault()}
-                  color="transparent"
-                >
-                  FAQs
-                </Button>
+                <Link to={"/faqs"} className={classes.listItem}>
+                  <Button className={classes.navLink} color="transparent">
+                    FAQs
+                  </Button>
+                </Link>
               </ListItem>
               <ListItem className={classes.listItem}>
                 <Link to={"/contact"} className={classes.listItem}>
@@ -173,13 +184,64 @@ export default function LandingPage(props) {
           </GridContainer>
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <div className={classes.container}>
-          <ProductSection />
-          <TeamSection />
-          <WorkSection />
-        </div>
-      </div>
+      <Dialog
+        classes={{
+          root: classesModal.modalRoot,
+          paper:
+            classesModal.modal +
+            " " +
+            classesModal.modalLarge +
+            " " +
+            classesModal.background,
+        }}
+        open={largeModal}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setLargeModal(false)}
+        aria-labelledby="large-modal-slide-title"
+        aria-describedby="large-modal-slide-description"
+      >
+        <DialogTitle
+          id="large-modal-slide-title"
+          disableTypography
+          className={classesModal.modalHeader}
+        >
+          <Button
+            simple
+            className={classesModal.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            onClick={() => setLargeModal(false)}
+          >
+            {" "}
+            <Close className={classesModal.modalClose} />
+          </Button>
+          <h4 className={classesModal.modalTitle}>Politica de cookies 🍪</h4>
+        </DialogTitle>
+        <DialogContent
+          id="large-modal-slide-description"
+          className={classesModal.modalBody}
+        >
+          <p>
+            Aviso de privacidad: Con su consentimiento, nosotros y nuestros
+            socios usamos cookies o tecnologías similares para almacenar,
+            acceder y procesar datos personales como su visita en este sitio
+            web. Puede retirar su consentimiento u oponerse al procesamiento
+            tratamiento de datos basado en intereses legítimos en cualquier
+            momento haciendo clic en &nbsp;
+            <Link to="/politica-de-privacidad">Politica de Privacidad</Link>
+            &nbsp;en este sitio web.
+          </p>
+          <Button
+            className={classesModal.buttonColor}
+            onClick={() => {
+              setLargeModal(false);
+            }}
+          >
+            Aceptar
+          </Button>
+        </DialogContent>
+      </Dialog>
       <Footer />
     </div>
   );

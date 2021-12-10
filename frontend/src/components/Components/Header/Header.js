@@ -16,7 +16,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "../../../assets/jss/material-kit-react/components/headerStyle.js";
-import logo from "../../../assets/img/logo_Web1.png";
+import logo from "../../../assets/img/logo_web.png";
 
 const useStyles = makeStyles(styles);
 
@@ -73,10 +73,11 @@ export default function Header(props) {
           <IconButton
             color="inherit"
             aria-label="open drawer"
+            padding="0"
             onClick={handleDrawerToggle}
           >
             <div>
-              <img src={logo} alt="begenius-logo" width="200px"></img>
+              <img src={logo} alt="begenius-logo" width="300px"></img>
             </div>
           </IconButton>
         </Link>

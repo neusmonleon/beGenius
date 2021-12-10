@@ -53,7 +53,7 @@ export default function SectionDownload() {
             <h4>
               We{"'"}ve launched{" "}
               <a
-                href="https://www.creative-tim.com/product/material-kit-pro-react?ref=mkr-download-section"
+                href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-download-section"
                 target="_blank"
               >
                 Material Kit PRO React{" "}
@@ -67,7 +67,7 @@ export default function SectionDownload() {
             <Button
               color="rose"
               size="lg"
-              href="https://www.creative-tim.com/product/material-kit-pro-react?ref=mkr-download-section"
+              href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-download-section"
               target="_blank"
             >
               Material Kit PRO

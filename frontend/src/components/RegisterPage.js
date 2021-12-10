@@ -80,7 +80,6 @@ export default function RegisterPage(props) {
   const [inputPassword2, setinputPassword2] = useState(""); //state input password 2
   const [redLine, setRedLine] = useState(false); //state password 2 color
   const [classicModal, setClassicModal] = useState(false); //state toggle modalbox
-  const [alert, setAlert] = useState(false); //state toggle notification
   const [checked, setChecked] = useState(false); //state checkbox
   const [checkedNewsletter, setCheckedNewsletter] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -153,10 +152,10 @@ export default function RegisterPage(props) {
     } else {
       props.setVariante("danger");
       props.setMensaje("Formato de email no válido");
-      setAlert(true);
+      props.setAlert(true);
 
       setTimeout(() => {
-        setAlert(false);
+        props.setAlert(false);
         props.setVariante("");
         props.setMensaje("");
       }, 3000);
@@ -190,7 +189,7 @@ export default function RegisterPage(props) {
                 newsletter: checkedNewsletter,
               },
               withCredentials: true,
-              url: "https://testbegenius.herokuapp.com/signup",
+              url: "http://localhost:3002/signup",
             })
               .then((res) => {
                 console.log(res.data);
@@ -200,21 +199,21 @@ export default function RegisterPage(props) {
                 } else {
                   props.setVariante("danger");
                   props.setMensaje(res.data.content);
-                  setAlert(true);
+                  props.setAlert(true);
 
                   setTimeout(() => {
-                    setAlert(false);
+                    props.setAlert(false);
                     props.setVariante("");
                     props.setMensaje("");
                   }, 3000);
                 }
               })
               .catch((error) => {
-                setAlert(true);
+                props.setAlert(true);
                 props.setVariante("warning");
                 props.setMensaje(error.data.content);
                 setTimeout(() => {
-                  setAlert(false);
+                  props.setAlert(false);
                   props.setVariante("");
                 }, 3000);
               });
@@ -223,9 +222,9 @@ export default function RegisterPage(props) {
               "Debes aceptar las condiciones y términos para registrarte."
             );
             props.setVariante("warning");
-            setAlert(true);
+            props.setAlert(true);
             setTimeout(() => {
-              setAlert(false);
+              props.setAlert(false);
               props.setVariante("");
               props.setMensaje("");
             }, 3000);
@@ -233,9 +232,9 @@ export default function RegisterPage(props) {
         } else {
           props.setMensaje("Email no válido");
           props.setVariante("warning");
-          setAlert(true);
+          props.setAlert(true);
           setTimeout(() => {
-            setAlert(false);
+            props.setAlert(false);
             props.setVariante("");
             props.setMensaje("");
           }, 3000);
@@ -245,9 +244,9 @@ export default function RegisterPage(props) {
           "Las claves no coinciden o el formato es incorrecto (La clave debe contener al menos 8 caracteres y mayúsculas, minúsculas y números)."
         );
         props.setVariante("danger");
-        setAlert(true);
+        props.setAlert(true);
         setTimeout(() => {
-          setAlert(false);
+          props.setAlert(false);
           props.setVariante("");
           props.setMensaje("");
         }, 6000);
@@ -255,9 +254,9 @@ export default function RegisterPage(props) {
     } else {
       props.setMensaje("Algún campo obligatorio no ha sido rellenado");
       props.setVariante("warning");
-      setAlert(true);
+      props.setAlert(true);
       setTimeout(() => {
-        setAlert(false);
+        props.setAlert(false);
         props.setVariante("");
         props.setMensaje("");
       }, 3000);
@@ -290,14 +289,11 @@ export default function RegisterPage(props) {
               </Button>
             </ListItem>
             <ListItem className={classesNav.listItem}>
-              <Button
-                href="/faqs"
-                className={classesNav.navLink}
-                onClick={(e) => e.preventDefault()}
-                color="transparent"
-              >
-                FAQs
-              </Button>
+              <Link to={"/faqs"} className={classesNav.listItem}>
+                <Button className={classesNav.navLink} color="transparent">
+                  FAQs
+                </Button>
+              </Link>
             </ListItem>
             <ListItem className={classesNav.listItem}>
               <Link to={"/contact"} className={classesNav.listItem}>
@@ -475,7 +471,7 @@ export default function RegisterPage(props) {
                     </div>
                   </CardHeader>
                   <p className={classes.divider}>O vía mail:</p>
-                  {alert ? notification(props.variante, props.mensaje) : <></>}
+                  {props.alert ? notification(props.variante, props.mensaje) : <></>}
                   <CardBody>
                     <CustomLinearProgress
                       variant="determinate"
@@ -623,24 +619,22 @@ export default function RegisterPage(props) {
                       <FormControlLabel
                         control={
                           <Switch
-                            // checkedIcon="👍🏼"
-                            // icon="👎🏼"
                             color="primary"
                             checked={checkedNewsletter}
-                            onChange={(event) =>
-                              setCheckedNewsletter(event.target.checked)
+                            onChange={() =>
+                              setCheckedNewsletter(!checkedNewsletter)
                             }
                             value={checkedNewsletter}
                             classes={{
-                              switchBase: classes.switchBase,
-                              checked: classes.switchChecked,
-                              thumb: classes.switchIcon,
-                              track: classes.switchBar,
+                              switchBase: classesCheckbox.switchBase,
+                              checked: classesCheckbox.switchChecked,
+                              thumb: classesCheckbox.switchIcon,
+                              track: classesCheckbox.switchBar,
                             }}
                           />
                         }
                         classes={{
-                          label: classes.label,
+                          label: classesCheckbox.label,
                         }}
                         label={
                           checkedNewsletter

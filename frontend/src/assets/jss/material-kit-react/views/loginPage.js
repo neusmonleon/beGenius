@@ -11,7 +11,7 @@ const signupPageStyle = {
   },
   cardHidden: {
     opacity: "0",
-    transform: "translate3d(0, -60px, 0)",
+    transform: "translate(0, -200px)",
   },
   pageHeader: {
     minHeight: "100vh",

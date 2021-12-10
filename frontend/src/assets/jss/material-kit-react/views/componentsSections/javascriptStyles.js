@@ -1,17 +1,44 @@
 import {
   container,
   title,
+  cardTitle,
+  description,
+  mlAuto,
+  mrAuto,
+  blackColor,
+  whiteColor,
+  grayColor,
+  warningColor,
+  hexToRgb,
+  primaryColor,
 } from "../../../../../assets/jss/material-kit-react.js";
 
 import modalStyle from "../../../../../assets/jss/material-kit-react/modalStyle.js";
 import tooltipsStyle from "../../../../../assets/jss/material-kit-react/tooltipsStyle.js";
 import popoverStyles from "../../../../../assets/jss/material-kit-react/popoverStyles.js";
+import customCheckboxRadioSwitch from "../../../../../assets/jss/material-kit-react/customCheckboxRadioSwitchStyle.js";
 
-const javascriptStyles = {
+const javascriptStyles = (theme) => ({
+  container,
+  description,
+  cardTitle,
+  mlAuto,
+  mrAuto,
+  ...tooltipsStyle,
+  ...popoverStyles,
+  ...modalStyle(theme),
+  ...customCheckboxRadioSwitch,
   section: {
     padding: "70px 0 0",
   },
-  container,
+  background: {
+    color: whiteColor,
+    backgroundColor: warningColor[3],
+  },
+  buttonColor: {
+    backgroundColor: primaryColor[2],
+    "&:hover": { backgroundColor: primaryColor[1] },
+  },
   title: {
     ...title,
     marginTop: "30px",
@@ -19,13 +46,12 @@ const javascriptStyles = {
     textDecoration: "none",
   },
   icon: {
-    width: "17px",
-    height: "17px",
-    marginRight: "4px",
+    width: "24px",
+    height: "24px",
+    color: grayColor[13],
   },
-  ...modalStyle,
   label: {
-    color: "rgba(0, 0, 0, 0.26)",
+    color: "rgba(" + hexToRgb(blackColor) + ", 0.26)",
     cursor: "pointer",
     display: "inline-flex",
     fontSize: "14px",
@@ -33,10 +59,46 @@ const javascriptStyles = {
     lineHeight: "1.428571429",
     fontWeight: "400",
     paddingLeft: "0",
-    letterSpacing: "normal",
   },
-  ...tooltipsStyle,
-  ...popoverStyles,
-};
+  textCenter: {
+    textAlign: "center",
+  },
+  cardTitleWhite: {
+    ...cardTitle,
+    color: whiteColor + "  !important",
+  },
+  socialLine: {
+    marginTop: "1rem",
+    textAlign: "center",
+    padding: "0",
+  },
+  socialLineButton: {
+    "&, &:hover": { color: whiteColor },
+    marginLeft: "5px",
+    marginRight: "5px",
+  },
+  cardLoginHeader: {
+    marginTop: "-40px",
+    padding: "20px 0",
+    width: "100%",
+    marginBottom: "15px",
+  },
+  cardLoginBody: {
+    paddingTop: "0",
+    paddingBottom: "0",
+  },
+  justifyContentCenter: {
+    WebkitBoxPack: "center !important",
+    MsFlexPack: "center !important",
+    justifyContent: "center !important",
+  },
+  infoArea: {
+    padding: "0px 0px 20px !important",
+  },
+  space50: {
+    height: "50px",
+    display: "block",
+  },
+});
 
 export default javascriptStyles;

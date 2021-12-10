@@ -26,7 +26,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const cors = require("cors");
 app.use(
   cors({
-    origin: "https://testbegeniusfront.herokuapp.com/",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
@@ -160,6 +160,19 @@ mongo.MongoClient.connect(process.env.URL_MONGO, (err, client) => {
   \_/______________________/
 */
 
+app.get("/", (req, res) => {
+  req.isAuthenticated()
+    ? res.send({
+        logged: true,
+        mensaje: "Authentication OK. Loading profile of " + req.user,
+        user: req.user,
+      })
+    : res.send({
+        logged: false,
+        mensaje: "Can not access to the profile without login",
+      });
+});
+
 //Call to login - first step authentication session with passport --- LOCAL ---
 app.post(
   "/login",
@@ -215,7 +228,7 @@ app.post("/signup", (req, res) => {
               email: req.body.email,
               password: { hash: passwordCrypt.hash, salt: passwordCrypt.salt },
               fechaNacimiento: req.body.birthdate,
-              newsletter: req.body.checkedNewsletter
+              newsletter: req.body.checkedNewsletter,
             },
             (err1, data) => {
               err1
@@ -239,7 +252,7 @@ app.get("/profile", (req, res) => {
         user: req.user,
       })
     : res.send({
-        looged: false,
+        logged: false,
         mensaje: "Can not access to the profile without login",
       });
 });

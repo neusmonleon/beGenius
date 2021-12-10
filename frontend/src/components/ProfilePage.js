@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 // nodejs library that concatenates classes
@@ -51,15 +51,13 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
   const navigate = useNavigate();
-
-  const [alert, setAlert] = useState(false);
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
   function logout() {
     Axios({
       method: "POST",
       withCredentials: true,
-      url: "https://testbegenius.herokuapp.com/logout",
+      url: "http://localhost:3002/logout",
     })
       .then((res) => {
         console.log(res.data);
@@ -68,42 +66,21 @@ export default function ProfilePage(props) {
           props.setVariante("success");
           props.setMensaje(res.data.mensaje);
         }
-        setAlert(true);
+        props.setAlert(true);
         setTimeout(() => {
           //hide notification
-          setAlert(false);
+          props.setAlert(false);
           if (res.data.logged) {
             navigate("/profile");
           }
           props.setVariante("");
         }, 3000);
-        // if (res.data.logged) {
-        //   props.setLogged(res.data.logged);
-        //   props.setUser(res.data.user);
-        //   props.setVariante("success");
-        //   props.setMensaje(res.data.mensaje);
-        // } else {
-        //   props.setLogged(res.data.logged);
-        //   props.setUser(null);
-        //   props.setVariante("danger");
-        //   props.setMensaje(res.data.mensaje);
-        // }
-        // //show notification
-        // setAlert(true);
-        // setTimeout(() => {
-        //   //hide notification
-        //   setAlert(false);
-        //   if (res.data.logged) {
-        //     navigate("/profile");
-        //   }
-        //   props.setVariante("");
-        // }, 3000);
       })
       .catch(() => {
-        setAlert(true);
+        props.setAlert(true);
         props.setVariante("warning");
         setTimeout(() => {
-          setAlert(false);
+          props.setAlert(false);
           props.setVariante("");
         }, 3000);
       });
@@ -181,7 +158,7 @@ export default function ProfilePage(props) {
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={6}>
-                {alert ? notification(props.variante) : <></>}
+                {props.alert ? notification(props.variante) : <></>}
                 <div className={classes.profile}>
                   <div>
                     <img src={profile} alt="..." className={imageClasses} />

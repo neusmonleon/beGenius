@@ -4,7 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import "./assets/scss/material-kit-react.scss";
+import "./assets/scss/material-kit-react.scss?v=1.10.0";
+//import "./assets/scss/material-kit-react.scss";
+
 
 ReactDOM.render(
   <React.StrictMode>

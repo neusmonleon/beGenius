@@ -58,14 +58,11 @@ export default function ContanctUs(props) {
                 </Button>
               </ListItem>
               <ListItem className={classesNav.listItem}>
-                <Button
-                  href="/faqs"
-                  className={classesNav.navLink}
-                  onClick={(e) => e.preventDefault()}
-                  color="transparent"
-                >
+              <Link to={"/faqs"} className={classesNav.listItem}>
+                <Button className={classesNav.navLink} color="transparent">
                   FAQs
                 </Button>
+              </Link>
               </ListItem>
 
               <ListItem className={classesNav.listItem}>

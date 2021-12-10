@@ -45,15 +45,6 @@ export default function ContactSection(props) {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return true;
     } else {
-      props.setVariante("danger");
-      props.setMensaje("Formato de email no válido");
-      setAlert(true);
-
-      setTimeout(() => {
-        setAlert(false);
-        props.setVariante("");
-        props.setMensaje("");
-      }, 3000);
       return false;
     }
   }
@@ -73,8 +64,24 @@ export default function ContactSection(props) {
         props.setMensaje("");
       }, 3000);
       //todo: enviar mail
+    } else {
+      if (name === "" || message === "") {
+        props.setVariante("danger");
+        props.setMensaje("Formulario incorrecto, revisa los campos.");
+      } else {
+        props.setVariante("danger");
+        props.setMensaje("Formato de email no válido");
+      }
+      setAlert(true);
+
+      setTimeout(() => {
+        setAlert(false);
+        props.setVariante("");
+        props.setMensaje("");
+      }, 3000);
     }
   }
+
 
   return (
     <div className={classes.section}>
@@ -144,7 +151,6 @@ export default function ContactSection(props) {
                   color="info"
                   onClick={() => {
                     sendMail();
-                    console.log("send mail");
                   }}
                 >
                   Enviar mensaje
