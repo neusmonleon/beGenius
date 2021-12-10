@@ -63,7 +63,7 @@ export default function LoginPage(props) {
         password: inputPassword,
       },
       withCredentials: true,
-      url: "http://localhost:3002/login",
+      url: "https://api-begenius.herokuapp.com//login",
     })
       .then((res) => {
         if (res.data.logged) {
@@ -191,10 +191,7 @@ export default function LoginPage(props) {
         <div className={classes.container}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
-              <Card
-                TransitionComponent={Transition}
-                
-              >
+              <Card TransitionComponent={Transition}>
                 {props.alert ? notification(props.variante) : <></>}
                 <form className={classes.form}>
                   <CardHeader color="info" className={classes.cardHeader}>

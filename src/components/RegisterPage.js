@@ -189,7 +189,7 @@ export default function RegisterPage(props) {
                 newsletter: checkedNewsletter,
               },
               withCredentials: true,
-              url: "http://localhost:3002/signup",
+              url: "https://api-begenius.herokuapp.com//signup",
             })
               .then((res) => {
                 console.log(res.data);
@@ -471,7 +471,11 @@ export default function RegisterPage(props) {
                     </div>
                   </CardHeader>
                   <p className={classes.divider}>O vía mail:</p>
-                  {props.alert ? notification(props.variante, props.mensaje) : <></>}
+                  {props.alert ? (
+                    notification(props.variante, props.mensaje)
+                  ) : (
+                    <></>
+                  )}
                   <CardBody>
                     <CustomLinearProgress
                       variant="determinate"
