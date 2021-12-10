@@ -25,7 +25,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const cors = require("cors");
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://begenius.herokuapp.com/",
+    // origin: "https://localhost:3000",
     credentials: true,
   })
 );
@@ -263,8 +264,8 @@ app.get("/profile", (req, res) => {
   |  _____________________|_
   \_/______________________/
 */
-
-app.listen(process.env.PORT || 3000, (err) => {
+//app.listen(process.env.PORT || 3000, (err) => {
+app.listen(process.env.PORT, (err) => {
   err
     ? console.error("❌ Server NOT connected")
     : console.log("✅ Server connected to the port " + process.env.PORT);
