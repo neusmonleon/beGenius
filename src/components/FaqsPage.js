@@ -37,10 +37,10 @@ const useStyles = makeStyles(styles);
 
 export default function FaqsPage(props) {
   /* LOGIN ANIMATION */
-  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
-  setTimeout(function () {
-    setCardAnimation("");
-  }, 700);
+  // const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  // setTimeout(function () {
+  //   setCardAnimation("");
+  // }, 700);
   const classes = useStyles();
   const classesNav = useStyleNavbar();
 
@@ -123,7 +123,7 @@ export default function FaqsPage(props) {
               )}
               {/* PROFILE PICTURE */}
               {props.logged === true ? (
-                <ListItem className={classes.listItem}>
+                <ListItem className={classesNav.listItem}>
                   <CustomDropdown
                     left
                     caret={false}
@@ -132,13 +132,13 @@ export default function FaqsPage(props) {
                     buttonText={
                       <img
                         src={profileImage}
-                        className={classes.img}
+                        className={classesNav.img}
                         alt="profile"
                       />
                     }
                     buttonProps={{
                       className:
-                        classes.navLink + " " + classes.imageDropdownButton,
+                        classesNav.navLink + " " + classesNav.imageDropdownButton,
                       color: "transparent",
                     }}
                     dropdownList={[
@@ -166,8 +166,8 @@ export default function FaqsPage(props) {
         <div className={classes.container}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={8}>
-              <Card className={classes[cardAnimaton]}>
-                {alert ? notification(props.variante) : <></>}
+              <Card>
+                {props.alert ? notification(props.variante) : <></>}
                 <form className={classes.form}>
                   <CardHeader color="info" className={classes.cardHeader}>
                     FAQS

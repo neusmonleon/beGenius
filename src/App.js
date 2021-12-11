@@ -5,7 +5,7 @@
   |  _____________________|_
   \_/______________________/
 */
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -20,7 +20,7 @@ import ContactUs from "./components/ContactUs.js";
 import FaqsPage from "./components/FaqsPage.js";
 import TeamPage from "./components/TeamPage";
 import PoliticaPage from "./components/PoliticaPage";
-
+import EventosPage from "./components/EventosPage";
 /*
  _________________________
 /\                        \
@@ -34,16 +34,17 @@ export default function App() {
   const [variante, setVariante] = useState("");
   const [mensaje, setMensaje] = useState(null);
   const [alert, setAlert] = useState(false);
-
+  const [acceptedCookies, setAcceptedCookies] = useState(false); // cookies management
   //Function to check if user have cookie to keep logged the session
   function checkSession() {
+    console.log("checkSession");
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "https://api-begenius.herokuapp.com/",
+      url: "http://localhost:3002/",
     })
       .then((res) => {
-        console.log(res);
+        //Check user logged
         if (res.data.logged) {
           setLogged(res.data.logged);
           setUser(res.data.user);
@@ -51,6 +52,23 @@ export default function App() {
           setLogged(res.data.logged);
           setUser(null);
         }
+        // if (res.data.cookie.slice(0, 10) != "") {
+        //   let date = new Date();
+        //   let today =
+        //     date.getFullYear() +
+        //     "-" +
+        //     (date.getMonth() + 1) +
+        //     "-" +
+        //     date.getDate();
+        //   let cookieDate = res.data.cookie.slice(0, 10);
+        //   if (cookieDate > today) {
+        //     console.log("ok");
+        //   } else {
+        //     console.log("caca");
+        //   }
+
+        //   console.log(cookieDate + " - " + today);
+        // }
       })
       .catch(() => {
         setVariante("danger");
@@ -66,7 +84,9 @@ export default function App() {
       });
   }
 
-  checkSession();
+  useEffect(() => {
+    checkSession();
+  }, []);
 
   return (
     <>
@@ -161,6 +181,20 @@ export default function App() {
                 setLogged={setLogged}
                 alert={alert}
                 setAlert={setAlert}
+              />
+            }
+          />
+          <Route
+            path="/eventos"
+            element={
+              <EventosPage
+                logged={logged}
+                alert={alert}
+                setAlert={setAlert}
+                mensaje={mensaje}
+                setMensaje={setMensaje}
+                variante={variante}
+                setVariante={setVariante}
               />
             }
           />

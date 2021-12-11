@@ -57,7 +57,7 @@ export default function ProfilePage(props) {
     Axios({
       method: "POST",
       withCredentials: true,
-      url: "https://api-begenius.herokuapp.com/logout",
+      url: "http://localhost:3002/logout",
     })
       .then((res) => {
         console.log(res.data);

@@ -10,8 +10,8 @@ import {
   whiteColor,
   grayColor,
   hexToRgb,
-} from "assets/jss/material-kit-react.js";
-import imagesStyles from "assets/jss/material-kit-react/imagesStyles.js";
+} from "../../material-kit-react.js";
+import imagesStyles from "../imagesStyles.js";
 
 const styles = {
   ...imagesStyles,

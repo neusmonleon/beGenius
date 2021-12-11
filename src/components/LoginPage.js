@@ -5,7 +5,6 @@ import Axios from "axios";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Slide from "@material-ui/core/Slide";
 // @material-ui/icons
 import { Twitter, LockSharp } from "@material-ui/icons";
 import Email from "@material-ui/icons/Email";
@@ -37,15 +36,15 @@ const useStyles = makeStyles(styles);
 
 export default function LoginPage(props) {
   /* LOGIN ANIMATION */
-  const [cardAnimaton, setCardAnimation] = useState("cardHidden");
-  setTimeout(function () {
-    setCardAnimation("");
-  }, 700);
+  // const [cardAnimaton, setCardAnimation] = useState("cardHidden");
+  // setTimeout(function () {
+  //   setCardAnimation("");
+  // }, 700);
   //Effect to slow down modal box
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="down" ref={ref} {...props} />;
-  });
-  Transition.displayName = "Transition";
+  // const Transition = React.forwardRef(function Transition(props, ref) {
+  //   return <Slide direction="down" ref={ref} {...props} />;
+  // });
+  //Transition.displayName = "Transition";
 
   const classes = useStyles();
   const classesNav = useStyleNavbar();
@@ -63,7 +62,7 @@ export default function LoginPage(props) {
         password: inputPassword,
       },
       withCredentials: true,
-      url: "https://api-begenius.herokuapp.com/login",
+      url: "http://localhost:3002/login",
     })
       .then((res) => {
         if (res.data.logged) {
@@ -191,7 +190,7 @@ export default function LoginPage(props) {
         <div className={classes.container}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
-              <Card TransitionComponent={Transition}>
+              <Card>
                 {props.alert ? notification(props.variante) : <></>}
                 <form className={classes.form}>
                   <CardHeader color="info" className={classes.cardHeader}>

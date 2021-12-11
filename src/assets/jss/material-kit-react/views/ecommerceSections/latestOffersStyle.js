@@ -6,9 +6,9 @@ import {
   grayColor,
   dangerColor,
   mlAuto,
-} from "assets/jss/material-kit-react.js";
+} from "../../../../../assets/jss/material-kit-react.js";
 
-import tooltipsStyle from "assets/jss/material-kit-react/tooltipsStyle.js";
+import tooltipsStyle from "../../../../../assets/jss/material-kit-react/tooltipsStyle.js";
 
 const styles = {
   cardTitle,

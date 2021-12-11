@@ -31,7 +31,7 @@ import CardFooter from "./Components/Card/CardFooter.js";
 import CustomInput from "./Components/CustomInput/CustomInput.js";
 import SnackbarContent from "./Components/Snackbar/SnackbarContent.js";
 import SectionCompletedExamples from "./Components/Sections/SectionCompletedExamples.js";
-import Slide from "@material-ui/core/Slide";
+//import Slide from "@material-ui/core/Slide";
 import IconButton from "@material-ui/core/IconButton";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -54,10 +54,10 @@ const useStyleCheckbox = makeStyles(styleCheckbox);
 const useStyles = makeStyles(styles);
 
 //Effect to slow down modal box
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
-Transition.displayName = "Transition";
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="down" ref={ref} {...props} />;
+// });
+// Transition.displayName = "Transition";
 
 export default function RegisterPage(props) {
   /* Register ANIMATION */
@@ -189,7 +189,7 @@ export default function RegisterPage(props) {
                 newsletter: checkedNewsletter,
               },
               withCredentials: true,
-              url: "https://api-begenius.herokuapp.com/signup",
+              url: "http://localhost:3002/signup",
             })
               .then((res) => {
                 console.log(res.data);
@@ -386,7 +386,7 @@ export default function RegisterPage(props) {
                 }}
                 //CHANGE TRUE OR FALSE TO SHOW MODAL
                 open={classicModal}
-                TransitionComponent={Transition}
+                //TransitionComponent={Transition}
                 keepMounted
                 onClose={() => {
                   setClassicModal(false);

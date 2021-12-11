@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -38,7 +38,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function LandingPage(props) {
-  const [largeModal, setLargeModal] = React.useState(false);
+  const [largeModal, setLargeModal] = useState(false);
 
   const classes = useStyleNavbar();
   const classesModal = useStyleModal();

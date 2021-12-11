@@ -54,83 +54,89 @@ export default function TeamPage(props) {
   }, [linkedin]);
 
   return (
-    <div id="navbar" className={classesNav.navbar}>
-      <Header
-        brand="beGenius"
-        color="dark"
-        fixed
-        rightLinks={
-          <List className={classesNav.list}>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  Inicio
-                </Button>
-              </Link>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Button
-                href="/events"
-                className={classesNav.navLink}
-                onClick={(e) => e.preventDefault()}
-                color="transparent"
-              >
-                Eventos
-              </Button>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Button
-                href="/faqs"
-                className={classesNav.navLink}
-                onClick={(e) => e.preventDefault()}
-                color="transparent"
-              >
-                FAQs
-              </Button>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/contact"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  Contacto
-                </Button>
-              </Link>
-            </ListItem>
-            {/* BUTTON LOGIN / LOGOUT */}
-            {props.logged === true ? (
-              <></>
-            ) : (
+    <>
+      <div id="navbar" className={classesNav.navbar}>
+        <Header
+          brand="beGenius"
+          color="dark"
+          fixed
+          rightLinks={
+            <List className={classesNav.list}>
               <ListItem className={classesNav.listItem}>
-                <Link to={"/login"} className={classesNav.listItem}>
-                  <Button
-                    className={classesNav.navLinkActive}
-                    color="transparent"
-                  >
-                    LogIn
+                <Link to={"/"} className={classesNav.listItem}>
+                  <Button className={classesNav.navLink} color="transparent">
+                    Inicio
                   </Button>
                 </Link>
               </ListItem>
-            )}
+              <ListItem className={classesNav.listItem}>
+                <Button
+                  href="/events"
+                  className={classesNav.navLink}
+                  onClick={(e) => e.preventDefault()}
+                  color="transparent"
+                >
+                  Eventos
+                </Button>
+              </ListItem>
+              <ListItem className={classesNav.listItem}>
+                <Button
+                  href="/faqs"
+                  className={classesNav.navLink}
+                  onClick={(e) => e.preventDefault()}
+                  color="transparent"
+                >
+                  FAQs
+                </Button>
+              </ListItem>
+              <ListItem className={classesNav.listItem}>
+                <Link to={"/contact"} className={classesNav.listItem}>
+                  <Button className={classesNav.navLink} color="transparent">
+                    Contacto
+                  </Button>
+                </Link>
+              </ListItem>
+              {/* BUTTON LOGIN / LOGOUT */}
+              {props.logged === true ? (
+                <></>
+              ) : (
+                <ListItem className={classesNav.listItem}>
+                  <Link to={"/login"} className={classesNav.listItem}>
+                    <Button
+                      className={classesNav.navLinkActive}
+                      color="transparent"
+                    >
+                      LogIn
+                    </Button>
+                  </Link>
+                </ListItem>
+              )}
 
-            {/* BUTTON REGISTER - TERNARY with login */}
-            {props.logged === false ? (
-              <ListItem className={classesNav.listItem}>
-                <Link to="/register" params="" className={classesNav.listItem}>
-                  <Button
-                    // justIcon
-                    round
-                    color="info"
+              {/* BUTTON REGISTER - TERNARY with login */}
+              {props.logged === false ? (
+                <ListItem className={classesNav.listItem}>
+                  <Link
+                    to="/register"
+                    params=""
+                    className={classesNav.listItem}
                   >
-                    <PersonIcon className={classesNav.icons} />
-                    Sign Up
-                  </Button>
-                </Link>
-              </ListItem>
-            ) : (
-              <></>
-            )}
-          </List>
-        }
-      />
+                    <Button
+                      // justIcon
+                      round
+                      color="info"
+                    >
+                      <PersonIcon className={classesNav.icons} />
+                      Sign Up
+                    </Button>
+                  </Link>
+                </ListItem>
+              ) : (
+                <></>
+              )}
+            </List>
+          }
+        />
+      </div>
       <div className={classes.section}></div>
       <div className={classes.section}>
         <h2 className={classes.title}>Quienes somos:</h2>
@@ -300,6 +306,6 @@ export default function TeamPage(props) {
         </div>
       </div>
       <Footer whiteFont />
-    </div>
+    </>
   );
 }
