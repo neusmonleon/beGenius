@@ -2,7 +2,7 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // core components
-import { GridContainer } from "Components/Grid/GridContainer.js";
+import GridContainer from "../Components/Grid/GridContainer.js";
 import GridItem from "../Components/Grid/GridItem.js";
 import Card from "../Components/Card/Card.js";
 import CardHeader from "../Components/Card/CardHeader.js";
