@@ -84,9 +84,9 @@ export default function App() {
       });
   }
 
-  useEffect(() => {
-    checkSession();
-  }, []);
+  // useEffect(() => {
+  //   checkSession();
+  // }, []);
 
   return (
     <>
