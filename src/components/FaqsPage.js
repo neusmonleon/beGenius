@@ -1,160 +1,47 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  Warning,
+  Check,
+  Header,
+  Footer,
+  GridContainer,
+  GridItem,
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  SnackbarContent,
+  Accordion,
+  stylesNavbar,
+  stylesLogin,
+} from "../ComponentStyle.js";
 
-// @material-ui/icons
-import PersonIcon from "@material-ui/icons/PersonAddOutlined";
-import Warning from "@material-ui/icons/Warning";
-import Check from "@material-ui/icons/Check";
-// core components
-import Header from "./Components/Header/Header.js";
-import Footer from "./Components/Footer/Footer.js";
-import GridContainer from "./Components/Grid/GridContainer.js";
-import GridItem from "./Components/Grid/GridItem.js";
-import Button from "./Components/CustomButtons/Button.js";
-import Card from "./Components/Card/Card.js";
-import CardBody from "./Components/Card/CardBody.js";
-import CardHeader from "./Components/Card/CardHeader.js";
-import CardFooter from "./Components/Card/CardFooter.js";
-import SnackbarContent from "./Components/Snackbar/SnackbarContent.js";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Accordion from "../components/Components/Accordion/Accordion.js";
-import CustomDropdown from "../components/Components/CustomDropdown/CustomDropdown.js";
-import profileImage from "../assets/img/faces/avatar.jpg";
-
-//Styles
-import styles from "../assets/jss/material-kit-react/views/loginPage.js";
-import styleNavbar from "../assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
-
+//todo refactorizar imagenes
 //import image from "../assets/img/fondo-web.jpg";
 import image from "../assets/img/lotsquestions.jpg";
 
-const useStyleNavbar = makeStyles(styleNavbar);
-const useStyles = makeStyles(styles);
+const useStylesNavbar = makeStyles(stylesNavbar);
+const useStyle = makeStyles(stylesLogin);
 
 export default function FaqsPage(props) {
+  props.setActiveNav("faqs");
+  props.setScrollNav(false);
   /* LOGIN ANIMATION */
   // const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   // setTimeout(function () {
   //   setCardAnimation("");
   // }, 700);
-  const classes = useStyles();
-  const classesNav = useStyleNavbar();
+  const classes = useStyle();
+  const classesNav = useStylesNavbar();
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  });
   return (
     <>
-      <div id="navbar" className={classesNav.navbar}>
-        <Header
-          brand="beGenius"
-          color="dark"
-          fixed
-          rightLinks={
-            <List className={classesNav.list}>
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLink} color="transparent">
-                    Inicio
-                  </Button>
-                </Link>
-              </ListItem>
-              <ListItem className={classesNav.listItem}>
-                <Button
-                  href="/events"
-                  className={classesNav.navLink}
-                  onClick={(e) => e.preventDefault()}
-                  color="transparent"
-                >
-                  Eventos
-                </Button>
-              </ListItem>
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/faqs"} className={classesNav.listItem}>
-                  <Button
-                    className={classesNav.navLinkActive}
-                    color="transparent"
-                  >
-                    FAQs
-                  </Button>
-                </Link>
-              </ListItem>
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/contact"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLink} color="transparent">
-                    Contacto
-                  </Button>
-                </Link>
-              </ListItem>
-              {/* BUTTON LOGIN / LOGOUT */}
-              {props.logged === true ? (
-                <></>
-              ) : (
-                <ListItem className={classesNav.listItem}>
-                  <Link to={"/login"} className={classesNav.listItem}>
-                    <Button className={classesNav.navLink} color="transparent">
-                      LogIn
-                    </Button>
-                  </Link>
-                </ListItem>
-              )}
-
-              {/* BUTTON REGISTER - TERNARY with login */}
-              {props.logged === false ? (
-                <ListItem className={classesNav.listItem}>
-                  <Link
-                    to="/register"
-                    params=""
-                    className={classesNav.listItem}
-                  >
-                    <Button
-                      // justIcon
-                      round
-                      color="info"
-                    >
-                      <PersonIcon className={classesNav.icons} />
-                      Sign Up
-                    </Button>
-                  </Link>
-                </ListItem>
-              ) : (
-                <></>
-              )}
-              {/* PROFILE PICTURE */}
-              {props.logged === true ? (
-                <ListItem className={classesNav.listItem}>
-                  <CustomDropdown
-                    left
-                    caret={false}
-                    hoverColor="black"
-                    dropdownHeader="Dropdown Header"
-                    buttonText={
-                      <img
-                        src={profileImage}
-                        className={classesNav.img}
-                        alt="profile"
-                      />
-                    }
-                    buttonProps={{
-                      className:
-                        classesNav.navLink + " " + classesNav.imageDropdownButton,
-                      color: "transparent",
-                    }}
-                    dropdownList={[
-                      "Me",
-                      "Settings and other stuff",
-                      "Sign out",
-                    ]}
-                  />
-                </ListItem>
-              ) : (
-                <></>
-              )}
-            </List>
-          }
-        />
-      </div>
       <div
         className={classes.pageHeader}
         style={{
@@ -212,7 +99,7 @@ export default function FaqsPage(props) {
                             esa edad pueden jugar siempre que algún adulto se
                             responsabilice de ellos.`,
                         },
-                        ,
+
                         {
                           title: "¿Qué tipos de Street Scape existen?",
                           content: `Hemos intentado abarcar todas las opciones para que
@@ -281,9 +168,7 @@ export default function FaqsPage(props) {
         </div>
       </div>
 
-      <div>
-        <Footer whiteFont />
-      </div>
+      <div></div>
     </>
   );
 }

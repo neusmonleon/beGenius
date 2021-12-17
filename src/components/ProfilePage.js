@@ -1,30 +1,24 @@
 import React from "react";
 import Axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-import Camera from "@material-ui/icons/Camera";
-import Palette from "@material-ui/icons/Palette";
-import Favorite from "@material-ui/icons/Favorite";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Warning from "@material-ui/icons/Warning";
-import Check from "@material-ui/icons/Check";
-// core components
-import Header from "../components/Components/Header/Header.js";
-import Footer from "../components/Components/Footer/Footer.js";
-import Button from "../components/Components/CustomButtons/Button.js";
-import GridContainer from "../components/Components/Grid/GridContainer.js";
-import GridItem from "../components/Components/Grid/GridItem.js";
-import NavPills from "../components/Components/NavPills/NavPills.js";
-import Parallax from "../components/Components/Parallax/Parallax.js";
-import SnackbarContent from "../components/Components/Snackbar/SnackbarContent.js";
+import { useNavigate } from "react-router-dom";
+import {
+  makeStyles,
+  Warning,
+  Check,
+  Camera,
+  Palette,
+  Favorite,
+  Button,
+  GridContainer,
+  GridItem,
+  SnackbarContent,
+  Parallax,
+  NavPills,
+  stylesProfile,
+} from "../ComponentStyle.js";
 
+//TODO: REFACTORIZAR IMAGENES
 import profile from "../assets/img/faces/christian.jpg";
-
 import studio1 from "../assets/img/examples/studio-1.jpg";
 import studio2 from "../assets/img/examples/studio-2.jpg";
 import studio3 from "../assets/img/examples/studio-3.jpg";
@@ -36,28 +30,24 @@ import work3 from "../assets/img/examples/cynthia-del-rio.jpg";
 import work4 from "../assets/img/examples/mariya-georgieva.jpg";
 import work5 from "../assets/img/examples/clem-onojegaw.jpg";
 
-import styles from "../assets/jss/material-kit-react/views/profilePage.js";
-import styleNavbar from "../assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
+import functions from "../components/Sections/functions";
 
-const useStyles = makeStyles(styles);
-const useStyleNavbar = makeStyles(styleNavbar);
+const useStyles = makeStyles(stylesProfile);
 
 export default function ProfilePage(props) {
+  props.setActiveNav("profile");
+  props.setScrollNav(false);
   const classes = useStyles();
-  const classesNav = useStyleNavbar();
-  const imageClasses = classNames(
-    classes.imgRaised,
-    classes.imgRoundedCircle,
-    classes.imgFluid
-  );
+  const imageClasses =
+    classes.imgRaised + " " + classes.imgRoundedCircle + " " + classes.imgFluid;
   const navigate = useNavigate();
-  const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+  const navImageClasses = classes.imgRounded + " " + classes.imgGallery;
 
   function logout() {
     Axios({
       method: "POST",
       withCredentials: true,
-      url: "https://api-begenius.herokuapp.com/logout",
+      url: "http://localhost:3002/logout",
     })
       .then((res) => {
         console.log(res.data);
@@ -65,13 +55,14 @@ export default function ProfilePage(props) {
           props.setLogged(res.data.logged);
           props.setVariante("success");
           props.setMensaje(res.data.mensaje);
+          props.setAlert(true);
         }
-        props.setAlert(true);
+
         setTimeout(() => {
           //hide notification
           props.setAlert(false);
           if (res.data.logged) {
-            navigate("/profile");
+            navigate("/");
           }
           props.setVariante("");
         }, 3000);
@@ -88,72 +79,12 @@ export default function ProfilePage(props) {
 
   return (
     <div>
-      <Header
-        brand="beGenius"
-        color="transparent"
-        fixed
-        changeColorOnScroll={{
-          height: 200,
-          color: "info",
-        }}
-        rightLinks={
-          <List className={classes.list}>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  Home
-                </Button>
-              </Link>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Button
-                href="/events"
-                className={classesNav.navLink}
-                onClick={(e) => e.preventDefault()}
-                color="transparent"
-              >
-                Events
-              </Button>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Button
-                href="/faqs"
-                className={classesNav.navLink}
-                onClick={(e) => e.preventDefault()}
-                color="transparent"
-              >
-                FAQs
-              </Button>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/contact"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  Contact
-                </Button>
-              </Link>
-            </ListItem>
-            {/* BUTTON LOGOUT */}
-
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/"} className={classesNav.listItem}>
-                <Button
-                  className={classesNav.navLinkActive}
-                  color="transparent"
-                  onClick={logout}
-                >
-                  LOGOUT
-                </Button>
-              </Link>
-            </ListItem>
-          </List>
-        }
-      />
       <Parallax
         small
         filter
         image={require("../assets/img/profile-bg.jpg").default}
       />
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      <div className={classes.main + " " + classes.mainRaised}>
         <div>
           <div className={classes.container}>
             <GridContainer justify="center">
@@ -164,29 +95,12 @@ export default function ProfilePage(props) {
                     <img src={profile} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
-                    <h3 className={classes.title}>Christian Louboutin</h3>
-                    <h6>DESIGNER</h6>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-twitter"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-instagram"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-facebook"} />
-                    </Button>
+                    <h3 className={classes.title}>{props.name}</h3>
+                    <h6>Newbie</h6>
                   </div>
                 </div>
               </GridItem>
             </GridContainer>
-            <div className={classes.description}>
-              <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
-              </p>
-            </div>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                 <NavPills
@@ -194,7 +108,7 @@ export default function ProfilePage(props) {
                   color="primary"
                   tabs={[
                     {
-                      tabButton: "Studio",
+                      tabButton: "Datos personales",
                       tabIcon: Camera,
                       tabContent: (
                         <GridContainer justify="center">
@@ -226,7 +140,7 @@ export default function ProfilePage(props) {
                       ),
                     },
                     {
-                      tabButton: "Work",
+                      tabButton: "Mis partidas",
                       tabIcon: Palette,
                       tabContent: (
                         <GridContainer justify="center">
@@ -263,7 +177,7 @@ export default function ProfilePage(props) {
                       ),
                     },
                     {
-                      tabButton: "Favorite",
+                      tabButton: "Ranking",
                       tabIcon: Favorite,
                       tabContent: (
                         <GridContainer justify="center">
@@ -306,7 +220,6 @@ export default function ProfilePage(props) {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -31,6 +31,10 @@ const javascriptStyles = (theme) => ({
   section: {
     padding: "70px 0 0",
   },
+  modalPayment: {
+    alignItems: "center",
+    flexDirection: "column",
+  },
   background: {
     color: whiteColor,
     backgroundColor: warningColor[3],

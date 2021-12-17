@@ -14,7 +14,14 @@ const useStyles = makeStyles(styles);
 
 export default function Pagination(props) {
   const classes = useStyles();
-  const { pages, color } = props;
+  const {
+    pages,
+    color,
+    selectedPage,
+    setSelectedPage,
+    currentPage,
+    setCurrentPage,
+  } = props;
   return (
     <ul className={classes.pagination}>
       {pages.map((prop, key) => {
@@ -31,7 +38,27 @@ export default function Pagination(props) {
               </Button>
             ) : (
               <Button
-                onClick={() => alert("you've clicked " + prop.text)}
+                onClick={() => {
+                  console.log(prop.text + " " + prop.disabled);
+                  if (prop.text.toLowerCase() === "next") {
+                    console.log("es next");
+                    setSelectedPage(parseInt(selectedPage) + 1);
+                  } else if (prop.text.toLowerCase() === "previous") {
+                    console.log("es prev");
+                    if (prop.disabled === false) {
+                      setSelectedPage(parseInt(selectedPage) - 1);
+                      if (selectedPage === 1) {
+                        
+                      }
+                    }
+                  } else {
+                    console.log("else");
+                    setSelectedPage(prop.text);
+                  }
+                  pages[currentPage].active = false;
+                  pages[selectedPage].active = true;
+                  console.log("selected es: " + selectedPage);
+                }}
                 className={paginationLink}
               >
                 {prop.text}

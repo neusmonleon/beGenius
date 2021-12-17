@@ -35,7 +35,7 @@ const headerStyle = (theme) => ({
     transition: "all 150ms ease 0s",
     alignItems: "center",
     flexFlow: "row nowrap",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     position: "relative",
   },
   absolute: {

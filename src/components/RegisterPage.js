@@ -1,72 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-// react plugin for creating date-time-picker
-import Datetime from "react-datetime";
-// @material-ui/icons
-import { Twitter, LockSharp, PeopleAltRounded } from "@material-ui/icons";
-import Email from "@material-ui/icons/Email";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import PersonIcon from "@material-ui/icons/PersonAddOutlined";
-import CustomDropdown from "./Components/CustomDropdown/CustomDropdown.js";
-import profileImage from "../assets/img/faces/avatar.jpg";
-import Warning from "@material-ui/icons/Warning";
-import Check from "@material-ui/icons/Check";
-import Close from "@material-ui/icons/Close";
-// core components
-import Header from "./Components/Header/Header.js";
-import Footer from "./Components/Footer/Footer.js";
-import GridContainer from "./Components/Grid/GridContainer.js";
-import GridItem from "./Components/Grid/GridItem.js";
-import Button from "./Components/CustomButtons/Button.js";
-import Card from "./Components/Card/Card.js";
-import CardBody from "./Components/Card/CardBody.js";
-import CardHeader from "./Components/Card/CardHeader.js";
-import CardFooter from "./Components/Card/CardFooter.js";
-import CustomInput from "./Components/CustomInput/CustomInput.js";
-import SnackbarContent from "./Components/Snackbar/SnackbarContent.js";
-import SectionCompletedExamples from "./Components/Sections/SectionCompletedExamples.js";
-//import Slide from "@material-ui/core/Slide";
-import IconButton from "@material-ui/core/IconButton";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import CustomLinearProgress from "./Components/CustomLinearProgress/CustomLinearProgress.js";
-
-import styles from "../assets/jss/material-kit-react/views/loginPage.js";
-import styleNavbar from "../assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
-import styleCheckbox from "../assets/jss/material-kit-react/views/componentsSections/basicsStyle.js";
-//import styleModalbox from "../assets/jss/material-kit-react/views/componentsSections/javascriptStyles.js";
+//
+import {
+  InputAdornment,
+  makeStyles,
+  Close,
+  Check,
+  Warning,
+  PeopleAltRounded,
+  Datetime,
+  Twitter,
+  LockSharp,
+  Email,
+  GridContainer,
+  GridItem,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  CustomInput,
+  SnackbarContent,
+  SectionCompletedExamples,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  FormControlLabel,
+  Switch,
+  CustomLinearProgress,
+  stylesLogin,
+  styleCheckbox,
+  Slide,
+  Parallax,
+} from "../ComponentStyle.js";
 
 import image from "../assets/img/detective2.jpg";
 
 //Styles for classes template
-const useStyleNavbar = makeStyles(styleNavbar);
 const useStyleCheckbox = makeStyles(styleCheckbox);
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(stylesLogin);
 
 //Effect to slow down modal box
-// const Transition = React.forwardRef(function Transition(props, ref) {
-//   return <Slide direction="down" ref={ref} {...props} />;
-// });
-// Transition.displayName = "Transition";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+Transition.displayName = "Transition";
 
 export default function RegisterPage(props) {
+  props.setActiveNav("register");
+  props.setScrollNav(false);
   /* Register ANIMATION */
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
-  const classesNav = useStyleNavbar();
   const classesCheckbox = useStyleCheckbox();
   //const classesModal = useStyleModalbox();
 
@@ -189,7 +180,7 @@ export default function RegisterPage(props) {
                 newsletter: checkedNewsletter,
               },
               withCredentials: true,
-              url: "https://api-begenius.herokuapp.com/signup",
+              url: "http://localhost:3002/signup",
             })
               .then((res) => {
                 console.log(res.data);
@@ -265,107 +256,6 @@ export default function RegisterPage(props) {
 
   return (
     <div>
-      <Header
-        brand="beGenius"
-        color="dark"
-        //fixed
-        rightLinks={
-          <List className={classesNav.list}>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  Inicio
-                </Button>
-              </Link>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Button
-                href="/events"
-                className={classesNav.navLink}
-                onClick={(e) => e.preventDefault()}
-                color="transparent"
-              >
-                Eventos
-              </Button>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/faqs"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  FAQs
-                </Button>
-              </Link>
-            </ListItem>
-            <ListItem className={classesNav.listItem}>
-              <Link to={"/contact"} className={classesNav.listItem}>
-                <Button className={classesNav.navLink} color="transparent">
-                  Contacto
-                </Button>
-              </Link>
-            </ListItem>
-            {/* BUTTON LOGIN / LOGOUT */}
-            {props.logged === true ? (
-              <></>
-            ) : (
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/login"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLink} color="transparent">
-                    LogIn
-                  </Button>
-                </Link>
-              </ListItem>
-            )}
-            {/* BUTTON REGISTER - TERNARY with login */}
-            {props.logged === false ? (
-              <ListItem className={classesNav.listItem}>
-                <Link to="/register" params="" className={classesNav.listItem}>
-                  <Button
-                    // justIcon
-                    round
-                    color="info"
-                  >
-                    <PersonIcon className={classesNav.icons} />
-                    Sign Up
-                  </Button>
-                </Link>
-              </ListItem>
-            ) : (
-              <></>
-            )}
-            {/* PROFILE PICTURE */}
-            {props.logged === true ? (
-              <ListItem className={classesNav.listItem}>
-                <CustomDropdown
-                  left
-                  caret={false}
-                  hoverColor="black"
-                  dropdownHeader="Dropdown Header"
-                  buttonText={
-                    <img
-                      src={profileImage}
-                      className={classesNav.img}
-                      alt="profile"
-                    />
-                  }
-                  buttonProps={{
-                    className:
-                      classesNav.navLink + " " + classesNav.imageDropdownButton,
-                    color: "transparent",
-                  }}
-                  dropdownList={["Me", "Settings and other stuff", "Sign out"]}
-                />
-              </ListItem>
-            ) : (
-              <></>
-            )}
-          </List>
-        }
-      />
-      <SectionCompletedExamples
-        title={"¡Únete gratis y descubre tu siguiente juego favorito!"}
-        text={
-          "Registrándote podrás subir de nivel, competir contra el resto del mundo y ver todos tus progresos."
-        }
-      />
       <div
         className={classes.pageHeader}
         style={{
@@ -376,6 +266,12 @@ export default function RegisterPage(props) {
         }}
       >
         <div className={classes.container}>
+          <SectionCompletedExamples
+            title={"¡Únete gratis y descubre tu siguiente juego favorito!"}
+            text={
+              "Registrándote podrás subir de nivel, competir contra el resto del mundo y ver todos tus progresos."
+            }
+          />
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={6}>
               {/* MODAL BOX  */}
@@ -670,7 +566,6 @@ export default function RegisterPage(props) {
             </GridItem>
           </GridContainer>
         </div>
-        <Footer whiteFont />
       </div>
     </div>
   );

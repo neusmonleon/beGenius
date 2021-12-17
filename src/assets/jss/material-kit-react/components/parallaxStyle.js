@@ -40,7 +40,7 @@ const parallaxStyle = {
       position: "absolute",
       zIndex: "1",
       width: "100%",
-      height: "100%",
+      height: "50%",
       display: "block",
       left: "0",
       top: "0",
@@ -178,8 +178,13 @@ const parallaxStyle = {
     },
   },
   small: {
-    height: "65vh",
-    minHeight: "65vh",
+    height: "50vh",
+    minHeight: "30vh",
+    maxHeight: "650px",
+  },
+  mini: {
+    height: "30vh",
+    minHeight: "30vh",
     maxHeight: "650px",
   },
 };

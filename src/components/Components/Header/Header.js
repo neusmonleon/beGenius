@@ -1,29 +1,66 @@
 import React from "react";
-import { Link } from "react-router-dom";
-// nodejs library that concatenates classes
+import Axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames";
+import {
+  makeStyles,
+  IconButton,
+  Button,
+  Hidden,
+  AppBar,
+  Toolbar,
+  Drawer,
+  PersonAddOutlined,
+  List,
+  Menu,
+  stylesHeader,
+  stylesNavbar,
+  ListItem,
+  ShoppingCart,
+  Tooltip,
+  tooltipsStyle,
+} from "ComponentStyle";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
-import Drawer from "@material-ui/core/Drawer";
-// @material-ui/icons
-import Menu from "@material-ui/icons/Menu";
-// core components
-import styles from "../../../assets/jss/material-kit-react/components/headerStyle.js";
+
+//TODO: REFACTORIZE IMAGES
+import profileImage from "../../../assets/img/faces/avatar.jpg";
 import logo from "../../../assets/img/logo_web.png";
 
-const useStyles = makeStyles(styles);
-
 export default function Header(props) {
-  //CHANGE COLOR AFTER SCROLL
+
+  
+  const useStyles = makeStyles(stylesHeader);
+  const useStylesNav = makeStyles(stylesNavbar);
   const classes = useStyles();
+  const classesNav = useStylesNav();
+
+  const navigate = useNavigate();
+
+  function logout() {
+    Axios({
+      method: "POST",
+      data: {
+        email: props.user,
+      },
+      withCredentials: true,
+      url: "http://localhost:3002/logout",
+    })
+      .then((res) => {
+        console.log(res.data);
+        props.setLogged(false);
+        if (res.data.logged === false) {
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  //MOBILE OPTION
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  //EFFECT TRIGGERED BY SCROLL
   React.useEffect(() => {
     if (props.changeColorOnScroll) {
       window.addEventListener("scroll", headerColorChange);
@@ -34,9 +71,11 @@ export default function Header(props) {
       }
     };
   });
+  //TOGGLE MOBILE HAMBURGER MENU
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  //CHANGE COLOR ON SCROLL
   const headerColorChange = () => {
     const { color, changeColorOnScroll } = props;
     const windowsScrollTop = window.pageYOffset;
@@ -56,14 +95,17 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, leftLinks, brand, fixed, absolute, active, logged } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
     [classes.absolute]: absolute,
     [classes.fixed]: fixed,
   });
-  const brandComponent = <Button className={classes.title}>{brand}</Button>;
+  const brandComponent = (
+    <Button className={classes.title}>{brand || "beGenius"}</Button>
+  );
+
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
@@ -91,12 +133,169 @@ export default function Header(props) {
             brandComponent
           )}
         </div> */}
+        {/* RIGHT LINKS */}
         <Hidden smDown implementation="css">
-          {rightLinks}
+          <List className={classes.list}>
+            <ListItem className={classesNav.listItem}>
+              <Link to={"/"} className={classesNav.listItem}>
+                <Button
+                  className={
+                    active === "home"
+                      ? classesNav.navLinkActive
+                      : classesNav.navLink
+                  }
+                  color="transparent"
+                >
+                  Inicio
+                </Button>
+              </Link>
+            </ListItem>
+            <ListItem className={classesNav.listItem}>
+              <Link to={"/events"} className={classesNav.listItem}>
+                <Button
+                  className={
+                    active === "events"
+                      ? classesNav.navLinkActive
+                      : classesNav.navLink
+                  }
+                  color="transparent"
+                >
+                  Eventos
+                </Button>
+              </Link>
+            </ListItem>
+            <ListItem className={classesNav.listItem}>
+              <Link to={"/faqs"} className={classesNav.listItem}>
+                <Button
+                  className={
+                    active === "faqs"
+                      ? classesNav.navLinkActive
+                      : classesNav.navLink
+                  }
+                  color="transparent"
+                >
+                  FAQs
+                </Button>
+              </Link>
+            </ListItem>
+            <ListItem className={classesNav.listItem}>
+              <Link to={"/contact"} className={classesNav.listItem}>
+                <Button
+                  className={
+                    active === "contact"
+                      ? classesNav.navLinkActive
+                      : classesNav.navLink
+                  }
+                  color="transparent"
+                >
+                  Contacto
+                </Button>
+              </Link>
+            </ListItem>
+            {/* BUTTON LOGIN / LOGOUT */}
+            {props.logged === true ? (
+              //logout button
+              <ListItem className={classesNav.listItem}>
+                <Button
+                  className={
+                    active === "login"
+                      ? classesNav.navLinkActive
+                      : classesNav.navLink
+                  }
+                  onClick={() => {
+                    logout();
+                  }}
+                  color="transparent"
+                >
+                  Logout
+                </Button>
+              </ListItem>
+            ) : (
+              //login button
+              <ListItem className={classesNav.listItem}>
+                <Link to={"/login"} className={classesNav.listItem}>
+                  <Button
+                    className={
+                      active === "login"
+                        ? classesNav.navLinkActive
+                        : classesNav.navLink
+                    }
+                    color="transparent"
+                  >
+                    LogIn
+                  </Button>
+                </Link>
+              </ListItem>
+            )}
+            <ListItem className={classesNav.listItem}>
+              <Link to={"/payment"} className={classesNav.listItem}>
+                <Button className={classesNav.navLink} color="transparent">
+                  Checkout
+                </Button>
+              </Link>
+            </ListItem>
+            {/* BUTTON REGISTER - TERNARY with login */}
+            {props.logged === false ? (
+              <ListItem className={classesNav.listItem}>
+                <Link to="/register" params="" className={classesNav.listItem}>
+                  <Button
+                    // justIcon
+                    round
+                    color="info"
+                  >
+                    <PersonAddOutlined className={classes.icons} />
+                    Sign Up
+                  </Button>
+                </Link>
+              </ListItem>
+            ) : (
+              <></>
+            )}
+            {/* PROFILE PICTURE */}
+            {props.logged === true ? (
+              <Tooltip
+                title="MI PERFIL"
+                placement="top"
+                classes={{ tooltip: tooltipsStyle }}
+              >
+                <Button className={classesNav.listItem} color="transparent">
+                  <ListItem className={classesNav.listItem}>
+                    <Link to={"/profile"} className={classesNav.listItem}>
+                      <Button
+                        className={classesNav.listItem}
+                        color="transparent"
+                        imageDropdownButton
+                      >
+                        <img
+                          src={profileImage}
+                          className={classesNav.img}
+                          alt="profile"
+                        />
+                      </Button>
+                    </Link>
+                  </ListItem>
+                </Button>
+              </Tooltip>
+            ) : (
+              <></>
+            )}
+            <ListItem className={classesNav.listItem}>
+              <Link to={"/shop"} className={classesNav.listItem}>
+                <Button
+                  className={
+                    active === "shop"
+                      ? classesNav.navLinkActive
+                      : classesNav.navLink
+                  }
+                  color="transparent"
+                >
+                  <ShoppingCart />
+                </Button>
+              </Link>
+            </ListItem>
+          </List>
         </Hidden>
         <Hidden mdUp>
-          {/* //MENU DROPDOWN */}
-
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -106,19 +305,101 @@ export default function Header(props) {
           </IconButton>
         </Hidden>
       </Toolbar>
+      {/* //-------------MENU HAMBURGER------------ */}
       <Hidden mdUp implementation="js">
         <Drawer
           variant="temporary"
           anchor={"right"}
           open={mobileOpen}
           classes={{
-            paper: classes.drawerPaper,
+            paper: classesNav.drawerPaper,
           }}
           onClose={handleDrawerToggle}
         >
           <div className={classes.appResponsive}>
             {leftLinks}
-            {rightLinks}
+            {
+              <List className={classesNav.list}>
+                <ListItem className={classesNav.listItem}>
+                  <Link to={"/"} className={classesNav.listItem}>
+                    <Button className={classesNav.navLink} color="transparent">
+                      Inicio
+                    </Button>
+                  </Link>
+                </ListItem>
+                <ListItem className={classesNav.listItem}>
+                  <Button
+                    href="/events"
+                    className={classesNav.navLink}
+                    onClick={(e) => e.preventDefault()}
+                    color="transparent"
+                  >
+                    Eventos
+                  </Button>
+                </ListItem>
+                <ListItem className={classesNav.listItem}>
+                  <Link to={"/faqs"} className={classesNav.listItem}>
+                    <Button className={classesNav.navLink} color="transparent">
+                      FAQs
+                    </Button>
+                  </Link>
+                </ListItem>
+
+                <ListItem className={classesNav.listItem}>
+                  <Link to={"/contact"} className={classesNav.listItem}>
+                    <Button className={classesNav.navLink} color="transparent">
+                      Contacto
+                    </Button>
+                  </Link>
+                </ListItem>
+                {/* BUTTON LOGIN / LOGOUT */}
+                {props.logged === true ? (
+                  <ListItem className={classesNav.listItem}>
+                    <Link to={"/logout"} className={classesNav.listItem}>
+                      <Button
+                        className={classesNav.navLinkActive}
+                        color="transparent"
+                      >
+                        LOGOUT
+                      </Button>
+                    </Link>
+                  </ListItem>
+                ) : (
+                  <ListItem className={classesNav.listItem}>
+                    <Link to={"/login"} className={classesNav.listItem}>
+                      <Button
+                        className={classesNav.navLinkActive}
+                        color="transparent"
+                      >
+                        LOGIN
+                      </Button>
+                    </Link>
+                  </ListItem>
+                )}
+
+                {/* BUTTON REGISTER - TERNARY with login */}
+                {props.logged === false ? (
+                  <ListItem className={classesNav.listItem}>
+                    <Link
+                      to="/register"
+                      params=""
+                      className={classesNav.listItem}
+                    >
+                      <Button
+                        // justIcon
+                        round
+                        color="info"
+                      >
+                        <PersonAddOutlined className={classesNav.icons} />
+                        Sign Up
+                      </Button>
+                    </Link>
+                  </ListItem>
+                ) : (
+                  <></>
+                )}
+              </List>
+            }
           </div>
         </Drawer>
       </Hidden>

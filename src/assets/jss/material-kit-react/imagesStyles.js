@@ -1,4 +1,7 @@
-import { blackColor, hexToRgb } from "../../../assets/jss/material-kit-react.js";
+import {
+  blackColor,
+  hexToRgb,
+} from "../../../assets/jss/material-kit-react.js";
 
 const imagesStyles = {
   imgFluid: {

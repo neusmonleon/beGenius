@@ -14,6 +14,25 @@ import buttonGroup from "assets/jss/material-kit-react/buttonGroupStyle.js";
 import tooltips from "assets/jss/material-kit-react/tooltipsStyle.js";
 
 const styles = {
+  big: {
+    fontSize: "105px",
+    color: "gray",
+  },
+  padding50: {
+    padding: "50px",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  justifyCenter: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paddingBottom50: {
+    paddingBottom: "50px",
+  },
   main,
   mainRaised,
   mrAuto,

@@ -1,46 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-
-// @material-ui/icons
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import PersonIcon from "@material-ui/icons/PersonAddOutlined";
-import { LinkedIn, Facebook, Instagram, Twitter } from "@material-ui/icons";
 // core components
-import GridContainer from "./Components/Grid/GridContainer.js";
-import GridItem from "./Components/Grid/GridItem.js";
-import Button from "./Components/CustomButtons/Button.js";
-import Card from "./Components/Card/Card.js";
-import CardBody from "./Components/Card/CardBody.js";
-import CardFooter from "./Components/Card/CardFooter.js";
+import {
+  makeStyles,
+  GridContainer,
+  GridItem,
+  Button,
+  LinkedIn,
+  Facebook,
+  Instagram,
+  Twitter,
+  Card,
+  CardBody,
+  CardFooter,
+  stylesTeam2,
+} from "../ComponentStyle.js";
 
-//core components
-import Header from "../components/Components/Header/Header.js";
-import Footer from "../components/Components/Footer/Footer.js";
-
-import styles from "../assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
-import styleNavbar from "../assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
-
+//TODO: REFACTORIZAR IMAGENES
 import team1 from "../assets/img/neus.jpeg";
 import team2 from "../assets/img/luismoreno2.jpg";
 import team3 from "../assets/img/kendall2.jpg";
 
-const useStyles = makeStyles(styles);
-const useStyleNavbar = makeStyles(styleNavbar);
+const useStyles = makeStyles(stylesTeam2);
 
 export default function TeamPage(props) {
-  const classes = useStyles();
-  const classesNav = useStyleNavbar();
-  const imageClasses = classNames(
-    classes.imgRaised,
-    classes.imgRoundedCircle,
-    classes.imgFluid
-  );
+  props.setActiveNav("teamwork");
+  props.setScrollNav(false);
 
+  const classes = useStyles();
+  const imageClasses =
+    classes.imgRaised + " " + classes.imgRoundedCircle + " " + classes.imgFluid;
   const [linkedin, setLinkedin] = useState(false);
   useEffect(() => {
     if (linkedin === true) {
@@ -55,88 +43,7 @@ export default function TeamPage(props) {
 
   return (
     <>
-      <div id="navbar" className={classesNav.navbar}>
-        <Header
-          brand="beGenius"
-          color="dark"
-          fixed
-          rightLinks={
-            <List className={classesNav.list}>
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLink} color="transparent">
-                    Inicio
-                  </Button>
-                </Link>
-              </ListItem>
-              <ListItem className={classesNav.listItem}>
-                <Button
-                  href="/events"
-                  className={classesNav.navLink}
-                  onClick={(e) => e.preventDefault()}
-                  color="transparent"
-                >
-                  Eventos
-                </Button>
-              </ListItem>
-              <ListItem className={classesNav.listItem}>
-                <Button
-                  href="/faqs"
-                  className={classesNav.navLink}
-                  onClick={(e) => e.preventDefault()}
-                  color="transparent"
-                >
-                  FAQs
-                </Button>
-              </ListItem>
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/contact"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLink} color="transparent">
-                    Contacto
-                  </Button>
-                </Link>
-              </ListItem>
-              {/* BUTTON LOGIN / LOGOUT */}
-              {props.logged === true ? (
-                <></>
-              ) : (
-                <ListItem className={classesNav.listItem}>
-                  <Link to={"/login"} className={classesNav.listItem}>
-                    <Button
-                      className={classesNav.navLinkActive}
-                      color="transparent"
-                    >
-                      LogIn
-                    </Button>
-                  </Link>
-                </ListItem>
-              )}
-
-              {/* BUTTON REGISTER - TERNARY with login */}
-              {props.logged === false ? (
-                <ListItem className={classesNav.listItem}>
-                  <Link
-                    to="/register"
-                    params=""
-                    className={classesNav.listItem}
-                  >
-                    <Button
-                      // justIcon
-                      round
-                      color="info"
-                    >
-                      <PersonIcon className={classesNav.icons} />
-                      Sign Up
-                    </Button>
-                  </Link>
-                </ListItem>
-              ) : (
-                <></>
-              )}
-            </List>
-          }
-        />
-      </div>
+     
       <div className={classes.section}></div>
       <div className={classes.section}>
         <h2 className={classes.title}>Quienes somos:</h2>
@@ -305,7 +212,6 @@ export default function TeamPage(props) {
           </GridContainer>
         </div>
       </div>
-      <Footer whiteFont />
     </>
   );
 }

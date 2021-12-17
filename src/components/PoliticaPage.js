@@ -1,133 +1,43 @@
-/*eslint-disable*/
 import React from "react";
-import { Link } from "react-router-dom";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Button from "../components/Components/CustomButtons/Button.js";
 
-// core components
-import Header from "./Components/Header/Header.js";
-import Footer from "./Components/Footer/Footer.js";
-import GridContainer from "./Components/Grid/GridContainer.js";
-import GridItem from "./Components/Grid/GridItem.js";
-import Parallax from "./Components/Parallax/Parallax.js";
-import Clearfix from "./Components/Clearfix/Clearfix.js";
+import {
+  makeStyles,
+  Header,
+  Footer,
+  Parallax,
+  Clearfix,
+  stylesNavbar,
+  stylesProfilePage,
+} from "../ComponentStyle.js";
 
-import styleNavbar from "../assets/jss/material-kit-react/views/componentsSections/navbarsStyle.js";
-import profilePageStyle from "../assets/jss/material-kit-react/views/profilePageStyle.js";
-const useStyles = makeStyles(profilePageStyle);
-const useStyleNavbar = makeStyles(styleNavbar);
+const useStyles = makeStyles(stylesProfilePage);
+const useStyleNavbar = makeStyles(stylesNavbar);
 
 export default function PoliticaPage(props) {
+  props.setActiveNav("privacy");
+  props.setScrollNav(false);
+  
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   });
   const classes = useStyles();
   const classesNav = useStyleNavbar();
-  const imageClasses = classNames(
-    classes.imgRaised,
-    classes.imgRoundedCircle,
-    classes.imgFluid
-  );
-  const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+  // const imageClasses = classes.imgRaised + " " + classes.imgRoundedCircle + " " + classes.imgFluid;
+  // const navImageClasses = classes.imgRounded + " " + classes.imgGallery;
   return (
     <div>
-      <div id="navbar" className={classesNav.navbar}>
-        <Header
-          brand="beGenius"
-          color="dark"
-          fixed
-          rightLinks={
-            <List className={classesNav.list}>
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLink} color="transparent">
-                    Inicio
-                  </Button>
-                </Link>
-              </ListItem>
-              <ListItem className={classesNav.listItem}>
-                <Button
-                  href="/events"
-                  className={classesNav.navLink}
-                  onClick={(e) => e.preventDefault()}
-                  color="transparent"
-                >
-                  Eventos
-                </Button>
-              </ListItem>
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/faqs"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLink} color="transparent">
-                    FAQs
-                  </Button>
-                </Link>
-              </ListItem>
-
-              <ListItem className={classesNav.listItem}>
-                <Link to={"/contact"} className={classesNav.listItem}>
-                  <Button className={classesNav.navLink} color="transparent">
-                    Contacto
-                  </Button>
-                </Link>
-              </ListItem>
-              {/* BUTTON LOGIN / LOGOUT */}
-              {props.logged === true ? (
-                <></>
-              ) : (
-                <ListItem className={classesNav.listItem}>
-                  <Link to={"/login"} className={classesNav.listItem}>
-                    <Button
-                      className={classesNav.navLinkActive}
-                      color="transparent"
-                    >
-                      LogIn
-                    </Button>
-                  </Link>
-                </ListItem>
-              )}
-
-              {/* BUTTON REGISTER - TERNARY with login */}
-              {props.logged === false ? (
-                <ListItem className={classesNav.listItem}>
-                  <Link
-                    to="/register"
-                    params=""
-                    className={classesNav.listItem}
-                  >
-                    <Button
-                      // justIcon
-                      round
-                      color="info"
-                    >
-                      <PersonIcon className={classesNav.icons} />
-                      Sign Up
-                    </Button>
-                  </Link>
-                </ListItem>
-              ) : (
-                <></>
-              )}
-            </List>
-          }
-        />
-      </div>
       <Parallax
         image={require("../assets/img/detective.jpg").default}
         filter="dark"
         className={classes.parallax}
       />
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      <div className={classes.main + " " + classes.mainRaised}>
         <div className={classes.container}>
-          <div className={classNames(classes.title + " " + classes.textCenter)}>
+          <div className={classes.title + " " + classes.textCenter}>
             <h1>Política de Privacidad</h1>
           </div>
-          <div className={classNames(classes.description)}>
+          <div className={classes.description}>
             <p>
               ¡Gracias por jugar nuestros juegos! La presente Política de
               Privacidad describe: - Las formas en las que recopilamos
@@ -318,7 +228,7 @@ export default function PoliticaPage(props) {
           <Clearfix />
         </div>
       </div>
-      <Footer whiteFont />
+     
     </div>
   );
 }

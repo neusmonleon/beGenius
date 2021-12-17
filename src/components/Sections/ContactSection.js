@@ -1,44 +1,42 @@
 import React, { useState } from "react";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import IconoTeamBuilding from "../../assets/img/teambuilding.jpg";
-import IconoEducacion from "../../assets/img/educacion.jpg";
-import IconoEventos from "../../assets/img/eventos.jpg";
-
-//components
-import GridContainer from "../Components/Grid/GridContainer.js";
-import GridItem from "../Components/Grid/GridItem.js";
-import CustomInput from "../Components/CustomInput/CustomInput.js";
-import Button from "../Components/CustomButtons/Button.js";
-import SnackbarContent from "../Components/Snackbar/SnackbarContent.js";
-import IconButton from "@material-ui/core/IconButton";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Slide from "@material-ui/core/Slide";
-// @material-ui/icons
-import Warning from "@material-ui/icons/Warning";
-import Check from "@material-ui/icons/Check";
-import Close from "@material-ui/icons/Close";
-
-import styles from "../../assets/jss/material-kit-react/views/landingPageSections/workStyle.js";
-
-//Effect to slow down modal box
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
-Transition.displayName = "Transition";
-
-const useStyles = makeStyles(styles);
+import {
+  makeStyles,
+  IconoTeamBuilding,
+  IconoEducacion,
+  IconoEventos,
+  GridContainer,
+  GridItem,
+  Button,
+  CustomInput,
+  SnackbarContent,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Warning,
+  Check,
+  Close,
+  Slide,
+  stylesTeam,
+} from "../../ComponentStyle.js";
 
 export default function ContactSection(props) {
-  const classes = useStyles();
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [message, setMessage] = useState("");
   const [alert, setAlert] = useState(false); //state toggle notification
   const [classicModal, setClassicModal] = useState(false); // state if the contact modal requires are ok and filled.
+
+  //Effect to slow down modal box
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="down" ref={ref} {...props} />;
+  });
+  Transition.displayName = "Transition";
+
+  const useStyles = makeStyles(stylesTeam);
+  const classes = useStyles();
 
   //regex for EMAIL (n-words + @ + n-words . {2-3 characters})
   function validateEmail(mail) {
@@ -81,7 +79,6 @@ export default function ContactSection(props) {
       }, 3000);
     }
   }
-
 
   return (
     <div className={classes.section}>

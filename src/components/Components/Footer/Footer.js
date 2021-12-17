@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
@@ -25,10 +24,6 @@ export default function Footer(props) {
     [classes.footer]: true,
     [classes.footerWhiteFont]: whiteFont,
   });
-  const aClasses = classNames({
-    [classes.a]: true,
-    [classes.footerWhiteFont]: whiteFont,
-  });
   return (
     <footer className={footerClasses}>
       <div className={classes.container}>
@@ -45,10 +40,7 @@ export default function Footer(props) {
               </Link>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <Link
-                to="/politica-de-privacidad"
-                className={classes.a + " " + classes.block}
-              >
+              <Link to="/privacy" className={classes.a + " " + classes.block}>
                 Términos y Política de privacidad
               </Link>
             </ListItem>

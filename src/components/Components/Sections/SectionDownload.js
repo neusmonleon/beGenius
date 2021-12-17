@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,16 +50,9 @@ export default function SectionDownload() {
           <GridItem xs={12} sm={12} md={8}>
             <h2>Want more?</h2>
             <h4>
-              We{"'"}ve launched{" "}
-              <a
-                href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-download-section"
-                target="_blank"
-              >
-                Material Kit PRO React{" "}
-              </a>
-              .It has a huge number of components, sections and example pages.
-              Start Your Development With A Badass Material-UI nspired by
-              Material Design.
+              We{"'"}ve launched .It has a huge number of components, sections
+              and example pages. Start Your Development With A Badass
+              Material-UI nspired by Material Design.
             </h4>
           </GridItem>
           <GridItem xs={12} sm={8} md={6}>

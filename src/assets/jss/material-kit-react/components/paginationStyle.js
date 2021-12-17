@@ -15,6 +15,7 @@ const paginationStyle = {
     paddingLeft: "0",
     listStyle: "none",
     borderRadius: "0.25rem",
+    justifyContent: "center",
   },
   paginationItem: {
     display: "inline",

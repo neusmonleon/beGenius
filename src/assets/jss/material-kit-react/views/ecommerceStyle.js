@@ -1,5 +1,4 @@
 import {
-  title,
   main,
   mainRaised,
   mrAuto,
@@ -15,7 +14,9 @@ import imagesStyles from "../imagesStyles.js";
 
 const styles = {
   ...imagesStyles,
-  title,
+  title: {
+    color: whiteColor,
+  },
   main,
   mainRaised,
   mrAuto,
