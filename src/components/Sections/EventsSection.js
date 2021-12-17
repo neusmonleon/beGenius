@@ -56,7 +56,7 @@ export default function EventsSection(props) {
   useEffect(() => {
     Axios({
       method: "GET",
-      url: "http://localhost:3002/histories/all",
+      url: "https://api-begenius.herokuapp.com/histories/all",
     })
       .then((res) => {
         if (!res.data.error) {

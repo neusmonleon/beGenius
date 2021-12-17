@@ -40,12 +40,12 @@ export default function CheckoutPage(props) {
           name: props.logged ? props.name : props.guestUser,
           orderId: paymentHash,
           price: parseInt(props.cartPrice),
-          email: props.logged ? props.user: props.guestEmail,
+          email: props.logged ? props.user : props.guestEmail,
           tickets: 6,
           codeRedeem: crypto.randomBytes(8).toString("hex"),
         },
         withCredentials: true,
-        url: "http://localhost:3002/orders/new",
+        url: "https://api-begenius.herokuapp.com/orders/new",
       })
         .then((res) => {
           console.log(res.data);

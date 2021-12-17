@@ -46,7 +46,7 @@ export default function LoginPage(props) {
         password: inputPassword,
       },
       withCredentials: true,
-      url: "http://localhost:3002/login",
+      url: "https://api-begenius.herokuapp.com/login",
     })
       .then((res) => {
         console.log(res.data);

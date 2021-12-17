@@ -69,7 +69,7 @@ export default function App() {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3002/",
+      url: "https://api-begenius.herokuapp.com/",
     })
       .then((res) => {
         //Check user logged

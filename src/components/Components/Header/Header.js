@@ -28,8 +28,6 @@ import profileImage from "../../../assets/img/faces/avatar.jpg";
 import logo from "../../../assets/img/logo_web.png";
 
 export default function Header(props) {
-
-  
   const useStyles = makeStyles(stylesHeader);
   const useStylesNav = makeStyles(stylesNavbar);
   const classes = useStyles();
@@ -44,7 +42,7 @@ export default function Header(props) {
         email: props.user,
       },
       withCredentials: true,
-      url: "http://localhost:3002/logout",
+      url: "https://api-begenius.herokuapp.com/logout",
     })
       .then((res) => {
         console.log(res.data);
